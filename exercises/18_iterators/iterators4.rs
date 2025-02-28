@@ -10,6 +10,9 @@ fn factorial(num: u64) -> u64 {
     // - additional variables
     // For an extra challenge, don't use:
     // - recursion
+    // ! The expression between () creates an iterator from 1 to num, and then you have the 'product' method
+    // ! to multiply all the elements of the iterator
+    (1..=num).product()
 }
 
 fn main() {

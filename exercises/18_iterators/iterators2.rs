@@ -7,7 +7,9 @@ fn capitalize_first(input: &str) -> String {
     let mut chars = input.chars();
     match chars.next() {
         None => String::new(),
-        Some(first) => todo!(),
+        // Transform the first character of the string to uppercase and concatenate the rest of the input (as the
+        // first character has already been consumed by 'next')
+        Some(first) => first.to_ascii_uppercase().to_string() + chars.as_str(),
     }
 }
 
@@ -15,14 +17,18 @@ fn capitalize_first(input: &str) -> String {
 // Return a vector of strings.
 // ["hello", "world"] -> ["Hello", "World"]
 fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
-    // ???
+    // ! Convert the input to iterator, then the 'map' method transforms each element in the iterator.
+    // ! Finally, the 'collect' method transforms the iterator into a collection. the type of collection that it
+    // returns is implicitly determined by the return type of the function
+    words.iter().map(|word| capitalize_first(word)).collect()
 }
 
 // TODO: Apply the `capitalize_first` function again to a slice of string
 // slices. Return a single string.
 // ["hello", " ", "world"] -> "Hello World"
 fn capitalize_words_string(words: &[&str]) -> String {
-    // ???
+    // Thanks to the 'collect' method, we can use the same expression here too, but this time the return type is different
+    words.iter().map(|word| capitalize_first(word)).collect()
 }
 
 fn main() {

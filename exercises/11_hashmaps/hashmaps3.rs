@@ -10,14 +10,14 @@ use std::collections::HashMap;
 
 // A structure to store the goal details of a team.
 #[derive(Default)]
-struct TeamScores {
+struct Team {
     goals_scored: u8,
     goals_conceded: u8,
 }
 
-fn build_scores_table(results: &str) -> HashMap<&str, TeamScores> {
+fn build_scores_table(results: &str) -> HashMap<&str, Team> {
     // The name of the team is the key and its associated struct is the value.
-    let mut scores = HashMap::<&str, TeamScores>::new();
+    let mut scores = HashMap::new();
 
     for line in results.lines() {
         let mut split_iterator = line.split(',');
@@ -31,6 +31,15 @@ fn build_scores_table(results: &str) -> HashMap<&str, TeamScores> {
         // Keep in mind that goals scored by team 1 will be the number of goals
         // conceded by team 2. Similarly, goals scored by team 2 will be the
         // number of goals conceded by team 1.
+        // Update team_1
+        let team_1 = scores.entry(team_1_name).or_insert_with(Team::default);
+        team_1.goals_scored += team_1_score;
+        team_1.goals_conceded += team_2_score;
+
+        // Update team_2
+        let team_2 = scores.entry(team_2_name).or_insert_with(Team::default);
+        team_2.goals_scored += team_2_score;
+        team_2.goals_conceded += team_1_score;
     }
 
     scores

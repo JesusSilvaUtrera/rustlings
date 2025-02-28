@@ -1,9 +1,6 @@
-// TODO: Fix the compiler error in this function.
-fn fill_vec(vec: Vec<i32>) -> Vec<i32> {
-    let vec = vec;
-
+fn fill_vec(mut vec: Vec<i32>) -> Vec<i32> {
+    // We just need to make the argument passed mutable, and by default the argument is moved, not copied
     vec.push(88);
-
     vec
 }
 
